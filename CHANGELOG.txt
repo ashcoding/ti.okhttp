@@ -1,0 +1,3 @@
+v0.0.1 	Initial version of ti.okhttp module. 
+		Has no support for downloading files or setting the SSL version.
+		Able to set HTTP method to `PATCH`.
