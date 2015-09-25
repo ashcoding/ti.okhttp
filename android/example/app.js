@@ -1,39 +1,40 @@
-// This is a test harness for your module
-// You should do something interesting in this harness
-// to test out the module and to provide instructions
-// to users on how to use it by example.
-
-
-// open a single window
 var win = Ti.UI.createWindow({
-	backgroundColor:'white'
+	backgroundColor : 'white'
 });
-var label = Ti.UI.createLabel();
-win.add(label);
-win.open();
 
-// TODO: write your module tests here
 var okhttp = require('ti.okhttp');
-Ti.API.info("module is => " + okhttp);
 
-label.text = okhttp.example();
+var url = "http://httpbin.org/patch?address=12345";
 
-Ti.API.info("module exampleProp is => " + okhttp.exampleProp);
-okhttp.exampleProp = "This is a test value";
+var client = okhttp.createOkhttpclient({
+	// function called when the response data is available
+	onload : function(e) {
+		Ti.API.info("Received text: " + this.responseText);
+		alert('success');
 
-if (Ti.Platform.name == "android") {
-	var proxy = okhttp.createExample({
-		message: "Creating an example Proxy",
-		backgroundColor: "red",
-		width: 100,
-		height: 100,
-		top: 100,
-		left: 150
-	});
+	},
 
-	proxy.printMessage("Hello world!");
-	proxy.message = "Hi world!.  It's me again.";
-	proxy.printMessage("Hello world!");
-	win.add(proxy);
-}
+	// function called when an error occurs, including a timeout
+	onerror : function(e) {
+		Ti.API.debug(e.error);
+		alert('error');
+
+	},
+
+	timeout : 5000 // in milliseconds
+
+});
+
+// Prepare the connection.
+client.open("PATCH", url);
+
+// Send the request.
+var body = {
+	"deliver_address" : 67,
+	"invoice_address" : 89
+};
+
+client.send(body);
+
+win.open();
 
