@@ -7,8 +7,8 @@ apiversion: 2
 architectures: armeabi armeabi-v7a x86
 description: okhttp
 author: Ashraf Abu Samah
-license: Specify your license
-copyright: Copyright (c) 2015 by Your Company
+license: Apache License, Version 2.0
+copyright: Copyright (c) 2015 by Appcelerator, Inc.
 
 # these should not be edited
 name: okhttp
